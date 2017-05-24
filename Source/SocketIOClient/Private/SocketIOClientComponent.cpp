@@ -191,6 +191,7 @@ void USocketIOClientComponent::ConnectNative(const FString& InAddressAndPort, co
 	{
 		FSIOLambdaRunnable::RunShortLambdaOnGameThread([this]
 		{
+			if (this && OnFail.IsBound())
 			{
 				OnFail.Broadcast();
 			}
