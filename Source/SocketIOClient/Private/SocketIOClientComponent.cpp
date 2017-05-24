@@ -141,7 +141,7 @@ void USocketIOClientComponent::ConnectNative(const FString& InAddressAndPort, co
 	{
 		FSIOLambdaRunnable::RunShortLambdaOnGameThread([this, InSessionId]
 		{
-			if (this)
+			if (this && OnConnected.IsBound())
 			{
 				bIsConnected = true;
 				SessionId = InSessionId;
@@ -167,7 +167,7 @@ void USocketIOClientComponent::ConnectNative(const FString& InAddressAndPort, co
 	{
 		FSIOLambdaRunnable::RunShortLambdaOnGameThread([this, Namespace]
 		{
-			if (this)
+			if (this && OnSocketNamespaceConnected.IsBound())
 			{
 				OnSocketNamespaceConnected.Broadcast(Namespace);
 			}
@@ -191,7 +191,9 @@ void USocketIOClientComponent::ConnectNative(const FString& InAddressAndPort, co
 	{
 		FSIOLambdaRunnable::RunShortLambdaOnGameThread([this]
 		{
-			OnFail.Broadcast();
+			{
+				OnFail.Broadcast();
+			}
 		});
 	};
 
