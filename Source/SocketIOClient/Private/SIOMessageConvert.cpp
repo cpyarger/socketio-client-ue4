@@ -1,4 +1,4 @@
-
+#include "SIOMessageConvert.h"
 
 #include "SocketIOClientPrivatePCH.h"
 
@@ -36,7 +36,7 @@ TSharedPtr<FJsonValue> USIOMessageConvert::ToJsonValue(const sio::message::ptr& 
 		TArray<uint8> Buffer;
 		Buffer.Append((uint8*)(Message->get_binary()->data()), Message->get_binary()->size());
 		//todo: investigate if binary optimization is possible? Do we copy?
-		
+
 		return MakeShareable(new FJsonValueBinary(Buffer));
 	}
 	else if (flag == sio::message::flag_array)
@@ -50,7 +50,7 @@ TSharedPtr<FJsonValue> USIOMessageConvert::ToJsonValue(const sio::message::ptr& 
 		{
 			InArray.Add(ToJsonValue(ItemMessage));
 		}
-		
+
 		return MakeShareable(new FJsonValueArray(InArray));
 	}
 	else if (flag == sio::message::flag_object)
@@ -73,7 +73,7 @@ TSharedPtr<FJsonValue> USIOMessageConvert::ToJsonValue(const sio::message::ptr& 
 	{
 		return MakeShareable(new FJsonValueNull());
 	}
-	else 
+	else
 	{
 		return MakeShareable(new FJsonValueNull());
 	}

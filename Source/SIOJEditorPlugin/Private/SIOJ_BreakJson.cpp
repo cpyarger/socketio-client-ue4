@@ -1,8 +1,7 @@
 // Copyright 2015 Vladimir Alyamkin. All Rights Reserved.
 // Original code by https://github.com/unktomi
-
-#include "SIOJEditorPluginPrivatePCH.h"
 #include "SIOJ_BreakJson.h"
+#include "SIOJEditorPluginPrivatePCH.h"
 #include "EdGraphUtilities.h"
 #include "Runtime/Launch/Resources/Version.h"
 
@@ -10,7 +9,7 @@
 
 class FKCHandler_BreakJson : public FNodeHandlingFunctor
 {
-	
+
 public:
 	FKCHandler_BreakJson(FKismetCompilerContext& InCompilerContext)
 		: FNodeHandlingFunctor(InCompilerContext)
@@ -90,7 +89,7 @@ public:
 				{
 					continue;
 				}
-			
+
 				UFunction *FunctionPtr = Class->FindFunctionByName(FunctionName);
 				Statement.Type = KCST_CallFunction;
 				Statement.FunctionToCall = FunctionPtr;
@@ -168,7 +167,7 @@ USIOJ_BreakJson::USIOJ_BreakJson(const FObjectInitializer &ObjectInitializer)
 {
 }
 
-FNodeHandlingFunctor* USIOJ_BreakJson::CreateNodeHandler(class FKismetCompilerContext& CompilerContext) const 
+FNodeHandlingFunctor* USIOJ_BreakJson::CreateNodeHandler(class FKismetCompilerContext& CompilerContext) const
 {
 	return new FKCHandler_BreakJson(CompilerContext);
 }
@@ -211,15 +210,15 @@ void USIOJ_BreakJson::PostEditChangeProperty(struct FPropertyChangedEvent& Prope
 
 void USIOJ_BreakJson::GetMenuActions(FBlueprintActionDatabaseRegistrar& ActionRegistrar) const
 {
-	// actions get registered under specific object-keys; the idea is that 
-	// actions might have to be updated (or deleted) if their object-key is  
-	// mutated (or removed)... here we use the node's class (so if the node 
+	// actions get registered under specific object-keys; the idea is that
+	// actions might have to be updated (or deleted) if their object-key is
+	// mutated (or removed)... here we use the node's class (so if the node
 	// type disappears, then the action should go with it)
 	UClass* ActionKey = GetClass();
 
-	// to keep from needlessly instantiating a UBlueprintNodeSpawner, first   
+	// to keep from needlessly instantiating a UBlueprintNodeSpawner, first
 	// check to make sure that the registrar is looking for actions of this type
-	// (could be regenerating actions for a specific asset, and therefore the 
+	// (could be regenerating actions for a specific asset, and therefore the
 	// registrar would only accept actions corresponding to that asset)
 	if (ActionRegistrar.IsOpenForRegistration(ActionKey))
 	{

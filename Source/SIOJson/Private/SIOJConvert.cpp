@@ -1,5 +1,4 @@
-
-
+#include "SIOJConvert.h"
 #include "SIOJsonPrivatePCH.h"
 
 typedef TJsonWriterFactory< TCHAR, TCondensedJsonPrintPolicy<TCHAR> > FCondensedJsonStringWriterFactory;
@@ -64,7 +63,7 @@ USIOJsonValue* USIOJConvert::ToSIOJsonValue(const TArray<TSharedPtr<FJsonValue>>
 	{
 		ValueArray.Add(InVal);
 	}
-	
+
 	USIOJsonValue* ResultValue = NewObject<USIOJsonValue>();
 	TSharedPtr<FJsonValue> NewVal = MakeShareable(new FJsonValueArray(ValueArray));
 	ResultValue->SetRootValue(NewVal);
@@ -111,7 +110,7 @@ TSharedPtr<FJsonValue> USIOJConvert::JsonStringToJsonValue(const FString& JsonSt
 		TSharedRef< TJsonReader<> > Reader = TJsonReaderFactory<>::Create(*JsonString);
 		bool success = FJsonSerializer::Deserialize(Reader, RawJsonValueArray);
 
-		if (success) 
+		if (success)
 		{
 			return MakeShareable(new FJsonValueArray(RawJsonValueArray));
 		}
@@ -123,7 +122,7 @@ TSharedPtr<FJsonValue> USIOJConvert::JsonStringToJsonValue(const FString& JsonSt
 		bool BooleanValue = (JsonString == FString("true"));
 		return MakeShareable(new FJsonValueBoolean(BooleanValue));
 	}
-	
+
 	//String
 	return MakeShareable(new FJsonValueString(JsonString));
 }
@@ -180,7 +179,7 @@ TSharedPtr<FJsonObject> USIOJConvert::ToJsonObject(const FString& JsonString)
 }
 
 TSharedPtr<FJsonObject> USIOJConvert::ToJsonObject(UStruct* Struct, void* StructPtr, bool IsBlueprintStruct)
-{	
+{
 	if (IsBlueprintStruct)
 	{
 		//Get the object keys
@@ -232,7 +231,7 @@ bool USIOJConvert::JsonObjectToUStruct(TSharedPtr<FJsonObject> JsonObject, UStru
 void USIOJConvert::TrimValueKeyNames(const TSharedPtr<FJsonValue>& JsonValue)
 {
 	//Array?
-	if (JsonValue->Type == EJson::Array) 
+	if (JsonValue->Type == EJson::Array)
 	{
 		auto Array = JsonValue->AsArray();
 
@@ -281,7 +280,7 @@ bool USIOJConvert::TrimKey(const FString& InLongKey, FString& OutTrimmedKey)
 	if (LastIndex >= 0)
 	{
 		OutTrimmedKey = InLongKey.Mid(0, LastIndex);;
-		return true; 
+		return true;
 	}
 	else
 	{
@@ -362,7 +361,7 @@ void USIOJConvert::SetTrimmedKeyMapForProp(TSharedPtr<FTrimmedKeyMap>& InMap, UP
 	if (ArrayProp != NULL)
 	{
 		SetTrimmedKeyMapForProp(InMap, ArrayProp->Inner);
-		
+
 	}
 }
 

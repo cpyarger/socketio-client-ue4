@@ -1,5 +1,5 @@
 // Copyright 2014 Vladimir Alyamkin. All Rights Reserved.
-
+#include "SIOJRequestJSON.h"
 #include "SIOJsonPrivatePCH.h"
 #include "CoreMisc.h"
 
@@ -28,8 +28,8 @@ USIOJRequestJSON* USIOJRequestJSON::ConstructRequest(UObject* WorldContextObject
 }
 
 USIOJRequestJSON* USIOJRequestJSON::ConstructRequestExt(
-	UObject* WorldContextObject, 
-	ESIORequestVerb Verb, 
+	UObject* WorldContextObject,
+	ESIORequestVerb Verb,
 	ESIORequestContentType ContentType)
 {
 	USIOJRequestJSON* Request = ConstructRequest(WorldContextObject);
@@ -233,7 +233,7 @@ void USIOJRequestJSON::ProcessRequest()
 	case ESIORequestVerb::PUT:
 		HttpRequest->SetVerb(TEXT("PUT"));
 		break;
-			
+
 	case ESIORequestVerb::DEL:
 		HttpRequest->SetVerb(TEXT("DELETE"));
 		break;
@@ -342,7 +342,7 @@ void USIOJRequestJSON::ProcessRequest()
 	{
 		HttpRequest->SetHeader(It.Key(), It.Value());
 	}
-	
+
 	// Bind event
 	HttpRequest->OnProcessRequestComplete().BindUObject(this, &USIOJRequestJSON::OnProcessRequestComplete);
 

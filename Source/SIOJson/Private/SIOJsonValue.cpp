@@ -1,5 +1,5 @@
 // Copyright 2014 Vladimir Alyamkin. All Rights Reserved.
-
+#include "SIOJsonValue.h"
 #include "SIOJsonPrivatePCH.h"
 #include "SIOJConvert.h"
 
@@ -220,7 +220,7 @@ FString USIOJsonValue::GetTypeString() const
 	}
 }
 
-bool USIOJsonValue::IsNull() const 
+bool USIOJsonValue::IsNull() const
 {
 	if (!JsonVal.IsValid())
 	{
@@ -310,9 +310,9 @@ TArray<uint8> USIOJsonValue::AsBinary()
 		TArray<uint8> ByteArray;
 		return ByteArray;
 	}
-	
+
 	//binary object pretending & starts with non-json format? it's our disguise binary
-	if (JsonVal->Type == EJson::String && 
+	if (JsonVal->Type == EJson::String &&
 		FJsonValueBinary::IsBinary(JsonVal))
 	{
 		//Valid binary available
@@ -327,7 +327,7 @@ TArray<uint8> USIOJsonValue::AsBinary()
 }
 
 FString USIOJsonValue::EncodeJson() const
-{ 
+{
 	return USIOJConvert::ToJsonString(JsonVal);
 }
 

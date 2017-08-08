@@ -1,5 +1,5 @@
 // Copyright 2014 Vladimir Alyamkin. All Rights Reserved.
-
+#include "SIOJsonObject.h"
 #include "SIOJsonPrivatePCH.h"
 
 typedef TJsonWriterFactory< TCHAR, TCondensedJsonPrintPolicy<TCHAR> > FCondensedJsonStringWriterFactory;
@@ -60,7 +60,7 @@ FString USIOJsonObject::EncodeJsonToSingleString() const
 
 	// Remove line terminators
 	OutputString.Replace(LINE_TERMINATOR, TEXT(""));
-	
+
 	// Remove tabs
 	OutputString.Replace(LINE_TERMINATOR, TEXT("\t"));
 
@@ -90,14 +90,14 @@ bool USIOJsonObject::DecodeJson(const FString& JsonString)
 TArray<FString> USIOJsonObject::GetFieldNames()
 {
 	TArray<FString> Result;
-	
+
 	if (!JsonObj.IsValid())
 	{
 		return Result;
 	}
-	
+
 	JsonObj->Values.GetKeys(Result);
-	
+
 	return Result;
 }
 
@@ -136,7 +136,7 @@ USIOJsonValue* USIOJsonObject::GetField(const FString& FieldName) const
 
 		return NewValue;
 	}
-	
+
 	return nullptr;
 }
 
@@ -182,7 +182,7 @@ FString USIOJsonObject::GetStringField(const FString& FieldName) const
 		UE_LOG(LogSIOJ, Warning, TEXT("No field with name %s of type String"), *FieldName);
 		return TEXT("");
 	}
-		
+
 	return JsonObj->GetStringField(FieldName);
 }
 
@@ -296,14 +296,14 @@ void USIOJsonObject::SetArrayField(const FString& FieldName, const TArray<USIOJs
 void USIOJsonObject::MergeJsonObject(USIOJsonObject* InJsonObject, bool Overwrite)
 {
 	TArray<FString> Keys = InJsonObject->GetFieldNames();
-	
+
 	for (auto Key : Keys)
 	{
 		if (Overwrite == false && HasField(Key))
 		{
 			continue;
 		}
-		
+
 		SetField(Key, InJsonObject->GetField(Key));
 	}
 }
@@ -388,7 +388,7 @@ TArray<float> USIOJsonObject::GetNumberArrayField(const FString& FieldName)
 		{
 			UE_LOG(LogSIOJ, Error, TEXT("Not Number element in array with field name %s"), *FieldName);
 		}
-		
+
 		NumberArray.Add((*It)->AsNumber());
 	}
 

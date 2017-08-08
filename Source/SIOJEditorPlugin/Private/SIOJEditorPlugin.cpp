@@ -1,8 +1,7 @@
 // Copyright 2015 Vladimir Alyamkin. All Rights Reserved.
 // Original code by https://github.com/unktomi
-
-#include "SIOJEditorPluginPrivatePCH.h"
 #include "SIOJEditorPlugin.h"
+#include "SIOJEditorPluginPrivatePCH.h"
 
 #define LOCTEXT_NAMESPACE "FSIOJEditorPluginModule"
 
@@ -18,5 +17,5 @@ void FSIOJEditorPluginModule::ShutdownModule()
 }
 
 #undef LOCTEXT_NAMESPACE
-	
+
 IMPLEMENT_MODULE(FSIOJEditorPluginModule, SIOJEditorPlugin)

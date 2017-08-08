@@ -1,5 +1,5 @@
 // Copyright 2016 Vladimir Alyamkin. All Rights Reserved.
-
+#include "SIOJLibrary.h"
 #include "SIOJsonPrivatePCH.h"
 #include "Base64.h"
 
@@ -163,23 +163,23 @@ void USIOJLibrary::CallURL(UObject* WorldContextObject, const FString& URL, ESIO
 	{
 		SIOJJson = USIOJsonObject::ConstructJsonObject(WorldContextObject);
 	}
-	
+
 	USIOJRequestJSON* Request = NewObject<USIOJRequestJSON>();
-	
+
 	Request->SetVerb(Verb);
 	Request->SetContentType(ContentType);
 	Request->SetRequestObject(SIOJJson);
-	
+
 	FSIOJCallResponse Response;
 	Response.Request = Request;
 	Response.WorldContextObject = WorldContextObject;
 	Response.Callback = Callback;
-	
+
 	Response.CompleteDelegateHandle = Request->OnStaticRequestComplete.AddStatic(&USIOJLibrary::OnCallComplete);
 	Response.FailDelegateHandle = Request->OnStaticRequestFail.AddStatic(&USIOJLibrary::OnCallComplete);
-	
+
 	RequestMap.Add(Request, Response);
-	
+
 	Request->ResetResponseData();
 	Request->ProcessURL(URL);
 }
@@ -190,14 +190,14 @@ void USIOJLibrary::OnCallComplete(USIOJRequestJSON* Request)
 	{
 		return;
 	}
-	
+
 	FSIOJCallResponse* Response = RequestMap.Find(Request);
-	
+
 	Request->OnStaticRequestComplete.Remove(Response->CompleteDelegateHandle);
 	Request->OnStaticRequestFail.Remove(Response->FailDelegateHandle);
-	
+
 	Response->Callback.ExecuteIfBound(Request);
-	
+
 	Response->WorldContextObject = nullptr;
 	Response->Request = nullptr;
 	RequestMap.Remove(Request);

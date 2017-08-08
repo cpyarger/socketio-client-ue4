@@ -1,5 +1,5 @@
 // Copyright 2014 Vladimir Alyamkin. All Rights Reserved.
-
+#include "SIOJson.h"
 #include "SIOJsonPrivatePCH.h"
 
 class FSIOJson : public ISIOJson

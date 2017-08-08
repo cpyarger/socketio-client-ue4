@@ -1,8 +1,7 @@
-
+#include "SocketIONative.h"
 #include "SocketIOClientPrivatePCH.h"
 #include "SIOLambdaRunnable.h"
 #include "SIOJConvert.h"
-#include "SocketIONative.h"
 
 FSocketIONative::FSocketIONative()
 {
@@ -114,7 +113,7 @@ void FSocketIONative::Connect(const FString& InAddressAndPort, const TSharedPtr<
 }
 
 void FSocketIONative::Disconnect()
-{	
+{
 	PrivateClient->close();
 }
 
@@ -269,4 +268,3 @@ void FSocketIONative::OnBinaryEvent(const FString& EventName, TFunction< void(co
 		}
 	}));
 }
-

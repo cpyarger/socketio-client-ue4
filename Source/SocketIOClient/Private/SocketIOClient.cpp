@@ -1,3 +1,4 @@
+#include "SocketIOClient.h"
 #include "SocketIOClientPrivatePCH.h"
 #include "SocketIONative.h"
 #include "SIOLambdaRunnable.h"
@@ -34,7 +35,7 @@ void FSocketIOClientModule::ShutdownModule()
 	FScopeLock Lock(&DeleteSection);
 
 	ModulePointers.Empty();
-	
+
 	/*for (auto& Pointer : ModulePointers)
 	{
 		if (Pointer)
@@ -77,5 +78,5 @@ void FSocketIOClientModule::ReleaseNativePointer(FSocketIONative* PointerToRelea
 }
 
 #undef LOCTEXT_NAMESPACE
-	
+
 IMPLEMENT_MODULE(FSocketIOClientModule, SocketIOClient)

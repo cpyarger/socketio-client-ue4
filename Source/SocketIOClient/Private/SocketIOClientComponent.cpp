@@ -1,6 +1,5 @@
-
-#include "SocketIOClientPrivatePCH.h"
 #include "SocketIOClientComponent.h"
+#include "SocketIOClientPrivatePCH.h"
 #include "SIOLambdaRunnable.h"
 #include "SIOJConvert.h"
 
@@ -79,7 +78,7 @@ bool USocketIOClientComponent::CallBPFunctionWithResponse(UObject* Target, const
 	FDynamicArgs Args = FDynamicArgs();
 
 	//convenience wrapper, response is a single object
-	Args.Arg01 = NewObject<USIOJsonValue>();	
+	Args.Arg01 = NewObject<USIOJsonValue>();
 	Args.Arg01->SetRootValue(Response[0]);
 
 	//add the full response array as second param
@@ -133,7 +132,7 @@ void USocketIOClientComponent::Connect(const FString& InAddressAndPort, USIOJson
 	{
 		HeadersFJson = Headers->GetRootObject();
 	}
-	
+
 	ConnectNative(InAddressAndPort, QueryFJson, HeadersFJson);
 }
 
@@ -259,7 +258,7 @@ void USocketIOClientComponent::EmitWithCallBack(const FString& EventName, USIOJs
 			CallBPFunctionWithResponse(Target, CallbackFunctionName, Response);
 		}, Namespace);
 	}
-	else 
+	else
 	{
 		EmitNative(EventName, Message->GetRootValue(),nullptr,Namespace);
 	}
